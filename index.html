@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Animation & VFX Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #e2e8f0;
+        background-color: #0f0f0f;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* Header & Navigation */
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #1f1f1f;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #e2e8f0;
+    }
+
+    .logo-icon {
+        width: 2rem;
+        height: 2rem;
+        color: #eab308;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .nav-item {
+        position: relative;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #94a3b8;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .nav-link:hover {
+        background-color: #1f1f1f;
+        color: #eab308;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #1a1a1a;
+        border: 1px solid #2d2d2d;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        min-width: 300px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.2s;
+        padding: 1.5rem;
+    }
+
+    .nav-item:hover .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .dropdown-header {
+        background: linear-gradient(to bottom, #2d2d2d, #1f1f1f);
+        padding: 1.5rem;
+        border-radius: 0.375rem;
+        margin-bottom: 1rem;
+    }
+
+    .dropdown-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #eab308;
+    }
+
+    .dropdown-desc {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .dropdown-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .dropdown-item {
+        padding: 0.75rem;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        color: #e2e8f0;
+        transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+        background-color: #2d2d2d;
+    }
+
+    .dropdown-item-title {
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+
+    .dropdown-item-desc {
+        font-size: 0.75rem;
+        color: #94a3b8;
+        margin-top: 0.25rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: #e2e8f0;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100vh;
+        background: #1a1a1a;
+        box-shadow: -10px 0 15px -3px rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        z-index: 1001;
+        transform: translateX(100%);
+        transition: transform 0.3s;
+    }
+
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
+
+    .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+    }
+
+    .mobile-overlay.active {
+        display: block;
+    }
+
+    .mobile-menu a {
+        color: #e2e8f0;
+        text-decoration: none;
+        display: block;
+        padding: 0.5rem 0;
+        transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover {
+        color: #eab308;
+    }
+
+    /* Hero Section */
+    .hero {
+        position: relative;
+        height: 70vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: opacity 1s;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        color: white;
+        max-width: 800px;
+        padding: 0 2rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+        color: #eab308;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        color: #e2e8f0;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #eab308;
+        color: #000;
+    }
+
+    .btn-primary:hover {
+        background-color: #ca8a04;
+        transform: translateY(-2px);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: #eab308;
+        border: 2px solid #eab308;
+    }
+
+    .btn-outline:hover {
+        background: #eab308;
+        color: #000;
+    }
+
+    .hero-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(234, 179, 8, 0.2);
+        border: none;
+        color: #eab308;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .hero-nav:hover {
+        background: rgba(234, 179, 8, 0.3);
+    }
+
+    .hero-nav.prev {
+        left: 2rem;
+    }
+
+    .hero-nav.next {
+        right: 2rem;
+    }
+
+    .hero-dots {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .hero-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: rgba(234, 179, 8, 0.5);
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .hero-dot.active {
+        background: #eab308;
+    }
+
+    /* Section Styles */
+    .section {
+        padding: 4rem 0;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #eab308;
+    }
+
+    .section-desc {
+        font-size: 1.125rem;
+        color: #94a3b8;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .bg-muted {
+        background-color: #1a1a1a;
+    }
+
+    /* Cards */
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .card {
+        background: #1f1f1f;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 1px solid #2d2d2d;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
+        border-color: #eab308;
+    }
+
+    .card-image {
+        width: 100%;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-header {
+        margin-bottom: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #e2e8f0;
+    }
+
+    .card-desc {
+        color: #94a3b8;
+        margin-bottom: 1rem;
+    }
+
+    .card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .badge-green {
+        background-color: #166534;
+        color: #22c55e;
+    }
+
+    .badge-yellow {
+        background-color: #92400e;
+        color: #fbbf24;
+    }
+
+    .badge-red {
+        background-color: #991b1b;
+        color: #ef4444;
+    }
+
+    .badge-outline {
+        background: transparent;
+        border: 1px solid #2d2d2d;
+        color: #94a3b8;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .star {
+        color: #eab308;
+        fill: currentColor;
+    }
+
+    /* Course Details */
+    .course-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    .course-details.expanded {
+        max-height: 500px;
+    }
+
+    .course-details-content {
+        padding-top: 1rem;
+        border-top: 1px solid #2d2d2d;
+    }
+
+    .details-section {
+        margin-bottom: 1rem;
+    }
+
+    .details-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #e2e8f0;
+    }
+
+    .details-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .details-list li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.25rem;
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .details-list li::before {
+        content: '•';
+        color: #eab308;
+        margin-right: 0.5rem;
+        margin-top: 0.125rem;
+    }
+
+    /* Forms */
+    .form-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #e2e8f0;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #2d2d2d;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        background-color: #1f1f1f;
+        color: #e2e8f0;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: #eab308;
+        box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.1);
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* Contact Info */
+    .contact-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: #1f1f1f;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        margin-bottom: 1.5rem;
+        border: 1px solid #2d2d2d;
+    }
+
+    .contact-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: #eab308;
+        color: #000;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .contact-details h3 {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #e2e8f0;
+    }
+
+    .contact-details p {
+        color: #eab308;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .contact-details span {
+        color: #94a3b8;
+        font-size: 0.875rem;
+    }
+
+    /* Footer */
+    .footer {
+        background-color: #0f0f0f;
+        padding: 2rem 0;
+        text-align: center;
+        color: #94a3b8;
+        border-top: 1px solid #1f1f1f;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .card-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-nav {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .hero-title {
+            font-size: 1.75rem;
+        }
+    }
+
+    /* Utility Classes */
+    .hidden {
+        display: none;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .items-center {
+        align-items: center;
+    }
+
+    .justify-between {
+        justify-content: space-between;
+    }
+
+    .gap-4 {
+        gap: 1rem;
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 1rem;
+    }
+
+    .mt-4 {
+        margin-top: 1rem;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #1f1f1f;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #eab308;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ca8a04;
+    }
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="#home" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+                <span class="logo-text">Zero to Hero Acadamy
+				</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#courses" class="nav-link">
+                        Courses
+                        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-title">All Courses</div>
+                            <div class="dropdown-desc">Explore our comprehensive 3D animation and VFX curriculum</div>
+                        </div>
+                        <div class="dropdown-grid">
+                            <a href="#animation" class="dropdown-item">
+                                <div class="dropdown-item-title">3D Animation Basics</div>
+                            </a>
+                            <a href="#modeling" class="dropdown-item">
+                                <div class="dropdown-item-title">3D Modeling Fundamentals</div>
+                            </a>
+                            <a href="#texturing" class="dropdown-item">
+                                <div class="dropdown-item-title">UV Unwrapping and Texturing</div>
+                            </a>
+                            <a href="#rigging" class="dropdown-item">
+                                <div class="dropdown-item-title">Character Rigging</div>
+                            </a>
+                            <a href="#lighting" class="dropdown-item">
+                                <div class="dropdown-item-title">Lighting for 3D</div>
+                            </a>
+                            <a href="#vfx" class="dropdown-item">
+                                <div class="dropdown-item-title">VFX Essentials</div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#instructors" class="nav-link">
+                        Instructors
+                        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-title">All Instructors</div>
+                            <div class="dropdown-desc">Meet our industry-experienced teaching team</div>
+                        </div>
+                        <div>
+                            <a href="#emma" class="dropdown-item">
+                                <div class="dropdown-item-title">Emma Carter</div>
+                                <div class="dropdown-item-desc">Lead 3D Animator</div>
+                            </a>
+                            <a href="#raj" class="dropdown-item">
+                                <div class="dropdown-item-title">Raj Patel</div>
+                                <div class="dropdown-item-desc">Senior VFX Artist</div>
+                            </a>
+                            <a href="#lena" class="dropdown-item">
+                                <div class="dropdown-item-title">Lena Moreau</div>
+                                <div class="dropdown-item-desc">Lighting Director</div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#enrollment" class="nav-link">Enroll</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#payment" class="nav-link">Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <nav>
+        <a href="#home" onclick="toggleMobileMenu()">Home</a>
+        <div style="margin: 1rem 0;">
+            <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #eab308;">Courses</h4>
+            <div style="margin-left: 1rem;">
+                <a href="#animation" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">3D Animation Basics</a>
+                <a href="#modeling" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">3D Modeling Fundamentals</a>
+                <a href="#texturing" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">UV Unwrapping and Texturing</a>
+                <a href="#rigging" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">Character Rigging</a>
+                <a href="#lighting" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">Lighting for 3D</a>
+                <a href="#vfx" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">VFX Essentials</a>
+            </div>
+        </div>
+        <div style="margin: 1rem 0;">
+            <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #eab308;">Instructors</h4>
+            <div style="margin-left: 1rem;">
+                <a href="#emma" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">Emma Carter</a>
+                <a href="#raj" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">Raj Patel</a>
+                <a href="#lena" onclick="toggleMobileMenu()" style="display: block; margin: 0.5rem 0; color: #94a3b8;">Lena Moreau</a>
+            </div>
+        </div>
+        <a href="#enrollment" onclick="toggleMobileMenu()">Enroll</a>
+        <a href="#payment" onclick="toggleMobileMenu()">Payment</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+    </nav>
+</div>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-bg" id="heroBg1" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg-1.jpg');"></div>
+    <div class="hero-bg" id="heroBg2" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg-2.jpg'); opacity: 0;"></div>
+    <div class="hero-bg" id="heroBg3" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg-3.jpg'); opacity: 0;"></div>
+    
+    <div class="hero-content">
+        <h1 class="hero-title" id="heroTitle">3D Animation Basics</h1>
+        <p class="hero-subtitle" id="heroSubtitle">Master the principles of timing, spacing, and movement</p>
+        <div class="hero-buttons">
+            <a href="#courses" class="btn btn-primary">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                Start Learning
+            </a>
+            <a href="#courses" class="btn btn-outline">View Courses</a>
+        </div>
+    </div>
+
+    <button class="hero-nav prev" onclick="changeSlide(-1)">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+    </button>
+    <button class="hero-nav next" onclick="changeSlide(1)">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </button>
+
+    <div class="hero-dots">
+        <button class="hero-dot active" onclick="goToSlide(0)"></button>
+        <button class="hero-dot" onclick="goToSlide(1)"></button>
+        <button class="hero-dot" onclick="goToSlide(2)"></button>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section id="courses" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Our Courses</h2>
+            <p class="section-desc">Comprehensive programs designed to take you from beginner to professional</p>
+        </div>
+
+        <div class="card-grid">
+            <!-- Course 1: 3D Animation Basics -->
+            <div class="card" id="animation">
+                <div class="card-image" style="background-image: url('images/course-animation.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="badge badge-green">Beginner</span>
+                            <div class="rating">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">3D Animation Basics</h3>
+                        <p class="card-desc">Master the principles of timing, spacing, and movement in 3D animation.</p>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="flex items-center gap-4">
+                            <span>⏱️ 8 weeks</span>
+                            <span>👥 1,234 students</span>
+                        </div>
+                    </div>
+
+                    <div class="course-details" id="details-animation">
+                        <div class="course-details-content">
+                            <div class="details-section">
+                                <h4 class="details-title">Overview</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">This introductory course covers the fundamental 12 principles of animation, keyframe animation, and basic character movement. Perfect for beginners.</p>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">What you'll learn</h4>
+                                <ul class="details-list">
+                                    <li>Keyframing & Graph Editor techniques</li>
+                                    <li>Squash & Stretch for believable motion</li>
+                                    <li>Anticipation & Overlap for dynamic action</li>
+                                    <li>Arcs in character and object movement</li>
+                                    <li>Timing & Spacing for emotional impact</li>
+                                    <li>Follow Through & Overlapping Action</li>
+                                    <li>Principles of Appeal & Solid Drawing</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-4">
+                        <a href="3d-animation-course.html" class="btn btn-primary w-full">Enroll Now</a>
+                        <button class="btn btn-outline" onclick="toggleDetails('details-animation', this)">See More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 2: 3D Modeling -->
+            <div class="card" id="modeling">
+                <div class="card-image" style="background-image: url('images/course-modeling.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="badge badge-green">Beginner</span>
+                            <div class="rating">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">3D Modeling Fundamentals</h3>
+                        <p class="card-desc">Create stunning 3D models for games, film, and product design.</p>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="flex items-center gap-4">
+                            <span>⏱️ 10 weeks</span>
+                            <span>👥 987 students</span>
+                        </div>
+                    </div>
+
+                    <div class="course-details" id="details-modeling">
+                        <div class="course-details-content">
+                            <div class="details-section">
+                                <h4 class="details-title">Overview</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">This course teaches the essential tools and techniques for building clean and efficient 3D models from scratch, focusing on industry-standard practices.</p>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">What you'll learn</h4>
+                                <ul class="details-list">
+                                    <li>Polygonal Modeling & Topology</li>
+                                    <li>Hard Surface Modeling (props, vehicles)</li>
+                                    <li>Subdivision Modeling (organic shapes)</li>
+                                    <li>Introduction to Digital Sculpting (ZBrush basics)</li>
+                                    <li>Retopology for animation and games</li>
+                                    <li>UV Unwrapping & Layout</li>
+                                </ul>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">Software</h4>
+                                <ul class="details-list">
+                                    <li>Autodesk Maya (Primary Modeling Tool)</li>
+                                    <li>ZBrush (Introduction to Sculpting)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-4">
+                        <a href="3d-modeling-course.html" class="btn btn-primary w-full">Enroll Now</a>
+                        <button class="btn btn-outline" onclick="toggleDetails('details-modeling', this)">See More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 3: Texturing -->
+            <div class="card" id="texturing">
+                <div class="card-image" style="background-image: url('images/course-texturing.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="badge badge-yellow">Intermediate</span>
+                            <div class="rating">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">UV Unwrapping and Texturing</h3>
+                        <p class="card-desc">Bring your models to life with realistic and stylized textures.</p>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="flex items-center gap-4">
+                            <span>⏱️ 6 weeks</span>
+                            <span>👥 756 students</span>
+                        </div>
+                    </div>
+
+                    <div class="course-details" id="details-texturing">
+                        <div class="course-details-content">
+                            <div class="details-section">
+                                <h4 class="details-title">Overview</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">Delve into advanced texturing workflows, including Physically Based Rendering (PBR), creating intricate materials, and optimizing textures for rendering.</p>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">What you'll learn</h4>
+                                <ul class="details-list">
+                                    <li>PBR Workflow & Principles</li>
+                                    <li>Material Creation (Metals, Woods, Fabrics, etc.)</li>
+                                    <li>Procedural vs. Hand-Painted Textures</li>
+                                    <li>Baking Maps (Normal, Ambient Occlusion, Curvature)</li>
+                                    <li>Layering & Blending Techniques</li>
+                                    <li>Texture Optimization for Games & Film</li>
+                                    <li>Look Development Basics</li>
+                                </ul>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">Software</h4>
+                                <ul class="details-list">
+                                    <li>Substance Painter</li>
+                                    <li>Adobe Photoshop</li>
+                                    <li>Mari (Introduction)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-4">
+                        <a href="texturing-course.html" class="btn btn-primary w-full">Enroll Now</a>
+                        <button class="btn btn-outline" onclick="toggleDetails('details-texturing', this)">See More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 4: Character Rigging -->
+            <div class="card" id="rigging">
+                <div class="card-image" style="background-image: url('images/course-rigging.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="badge badge-red">Advanced</span>
+                            <div class="rating">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Character Rigging</h3>
+                        <p class="card-desc">Build professional control systems for animatable characters.</p>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="flex items-center gap-4">
+                            <span>⏱️ 12 weeks</span>
+                            <span>👥 543 students</span>
+                        </div>
+                    </div>
+
+                    <div class="course-details" id="details-rigging">
+                        <div class="course-details-content">
+                            <div class="details-section">
+                                <h4 class="details-title">Overview</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">Master the art of character rigging, from bone placement and skinning to control interfaces that allow animators to bring characters to life and animate.</p>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">What you'll learn</h4>
+                                <ul class="details-list">
+                                    <li>Skeletal Setup & Joint Placement</li>
+                                    <li>Forward Kinematics (FK) & Inverse Kinematics (IK) systems</li>
+                                    <li>Skinning & Weight Painting Techniques</li>
+                                    <li>Deformers (Blend Shapes, Lattices)</li>
+                                    <li>Creating Custom Controls & Attributes</li>
+                                    <li>Basic Facial Rigging Concepts</li>
+                                    <li>Rig Optimization for performance</li>
+                                </ul>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">Software</h4>
+                                <ul class="details-list">
+                                    <li>Autodesk Maya</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-4">
+                        <a href="character-rigging-course.html" class="btn btn-primary w-full">Enroll Now</a>
+                        <button class="btn btn-outline" onclick="toggleDetails('details-rigging', this)">See More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 5: Lighting -->
+            <div class="card" id="lighting">
+                <div class="card-image" style="background-image: url('images/course-lighting.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="badge badge-yellow">Intermediate</span>
+                            <div class="rating">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Lighting for 3D</h3>
+                        <p class="card-desc">Explore cinematic and photorealistic lighting techniques for your 3D scenes.</p>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="flex items-center gap-4">
+                            <span>⏱️ 8 weeks</span>
+                            <span>👥 892 students</span>
+                        </div>
+                    </div>
+
+                    <div class="course-details" id="details-lighting">
+                        <div class="course-details-content">
+                            <div class="details-section">
+                                <h4 class="details-title">Overview</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">Understand the art and science of 3D lighting. Learn about different light types, global illumination, creating moods, achieving realism and much more.</p>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">What you'll learn</h4>
+                                <ul class="details-list">
+                                    <li>Principles of Light and Shadow</li>
+                                    <li>Three-Point Lighting Setup</li>
+                                    <li>Global Illumination (GI) & Ambient Occlusion (AO)</li>
+                                    <li>HDRI (High Dynamic Range Imaging) for realistic skies</li>
+                                    <li>Volumetric Lighting (Fog, God Rays)</li>
+                                    <li>Render Passes & AOV (Arbitrary Output Variables)</li>
+                                    <li>Color Theory in Lighting</li>
+                                    <li>Stylized vs. Photorealistic Lighting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-4">
+                        <a href="lighting-course.html" class="btn btn-primary w-full">Enroll Now</a>
+                        <button class="btn btn-outline" onclick="toggleDetails('details-lighting', this)">See More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 6: VFX -->
+            <div class="card" id="vfx">
+                <div class="card-image" style="background-image: url('images/course-vfx.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="badge badge-yellow">Intermediate</span>
+                            <div class="rating">
+                                <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">VFX Essentials</h3>
+                        <p class="card-desc">Learn compositing, tracking, and particle simulations for stunning visual effects.</p>
+                    </div>
+
+                    <div class="card-meta">
+                        <div class="flex items-center gap-4">
+                            <span>⏱️ 10 weeks</span>
+                            <span>👥 1,156 students</span>
+                        </div>
+                    </div>
+
+                    <div class="course-details" id="details-vfx">
+                        <div class="course-details-content">
+                            <div class="details-section">
+                                <h4 class="details-title">Overview</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">Dive into the world of visual effects! This course teaches essential techniques to create believable and jaw-dropping visual effects for film and games.</p>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">What you'll learn</h4>
+                                <ul class="details-list">
+                                    <li>Chroma Keying (Green Screen/Blue Screen)</li>
+                                    <li>Motion Tracking & Stabilisation</li>
+                                    <li>Rotoscoping & Masking Techniques</li>
+                                    <li>Introduction to Particle Systems (Explosions, Smoke, etc.)</li>
+                                    <li>Color Correction & Grading for VFX</li>
+                                    <li>Integrating 3D elements into live-action footage</li>
+                                </ul>
+                            </div>
+                            <div class="details-section">
+                                <h4 class="details-title">Software</h4>
+                                <ul class="details-list">
+                                    <li>Nuke (Compositing Fundamentals)</li>
+                                    <li>After Effects (Motion Graphics & Basic Compositing)</li>
+                                    <li>Houdini (Introductory Concepts for FX)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-4">
+                        <a href="vfx-course.html" class="btn btn-primary w-full">Enroll Now</a>
+                        <button class="btn btn-outline" onclick="toggleDetails('details-vfx', this)">See More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instructors Section -->
+<section id="instructors" class="section bg-muted">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Meet Our Instructors</h2>
+            <p class="section-desc">Learn from industry professionals with years of experience at top studios</p>
+        </div>
+
+        <div class="card-grid">
+            <!-- Instructor 1: Emma Carter -->
+            <div class="card" id="emma">
+                <div class="card-image" style="background-image: url('images/instructor-emma.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Emma Carter</h3>
+                    <p style="color: #eab308; font-weight: 600; margin-bottom: 1rem;">Lead 3D Animator</p>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 0.5rem; font-size: 0.875rem; color: #94a3b8;">
+                            <span style="margin-right: 0.5rem;">🏆</span>
+                            12+ years experience
+                        </div>
+                        <div style="display: flex; align-items: center; font-size: 0.875rem; color: #94a3b8;">
+                            <span style="margin-right: 0.5rem;">📍</span>
+                            Los Angeles, CA
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Specialties</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                            <span class="badge badge-outline">Character Animation</span>
+                            <span class="badge badge-outline">Facial Animation</span>
+                            <span class="badge badge-outline">Motion Capture</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Experience</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                            <span class="badge badge-outline">Pixar</span>
+                            <span class="badge badge-outline">DreamWorks</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 1rem;">Emma is a seasoned 3D animator with over 12 years of experience in feature films. She has worked on blockbuster movies at Pixar and DreamWorks, specializing in character animation and bringing digital characters to life.</p>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Achievements</h4>
+                        <ul class="details-list">
+                            <li>Annie Award Winner 2019</li>
+                            <li>VES Award Nominee 2020</li>
+                            <li>Contributed to 15+ feature films</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://emmacarter3d.com" target="_blank" class="btn btn-outline w-full">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        View Portfolio
+                    </a>
+                </div>
+            </div>
+
+            <!-- Instructor 2: Raj Patel -->
+            <div class="card" id="raj">
+                <div class="card-image" style="background-image: url('images/instructor-raj.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Raj Patel</h3>
+                    <p style="color: #eab308; font-weight: 600; margin-bottom: 1rem;">Senior VFX Artist</p>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 0.5rem; font-size: 0.875rem; color: #94a3b8;">
+                            <span style="margin-right: 0.5rem;">🏆</span>
+                            10+ years experience
+                        </div>
+                        <div style="display: flex; align-items: center; font-size: 0.875rem; color: #94a3b8;">
+                            <span style="margin-right: 0.5rem;">📍</span>
+                            Vancouver, BC
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Specialties</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                            <span class="badge badge-outline">Simulations</span>
+                            <span class="badge badge-outline">Compositing</span>
+                            <span class="badge badge-outline">Particle Effects</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Experience</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                            <span class="badge badge-outline">Marvel Studios</span>
+                            <span class="badge badge-outline">Netflix</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 1rem;">Raj is a highly skilled VFX artist specializing in simulations and compositing. His work can be seen in major blockbusters including Avengers and popular Netflix series like The Witcher.</p>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Achievements</h4>
+                        <ul class="details-list">
+                            <li>VES Award Winner 2021</li>
+                            <li>Worked on 20+ major productions</li>
+                            <li>Expert in Houdini and Nuke</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://rajvfx.com" target="_blank" class="btn btn-outline w-full">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        View Portfolio
+                    </a>
+                </div>
+            </div>
+
+            <!-- Instructor 3: Lena Moreau -->
+            <div class="card" id="lena">
+                <div class="card-image" style="background-image: url('images/instructor-lena.jpg');"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Lena Moreau</h3>
+                    <p style="color: #eab308; font-weight: 600; margin-bottom: 1rem;">Lighting Director</p>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 0.5rem; font-size: 0.875rem; color: #94a3b8;">
+                            <span style="margin-right: 0.5rem;">🏆</span>
+                            8+ years experience
+                        </div>
+                        <div style="display: flex; align-items: center; font-size: 0.875rem; color: #94a3b8;">
+                            <span style="margin-right: 0.5rem;">📍</span>
+                            Montreal, QC
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Specialties</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                            <span class="badge badge-outline">Cinematic Lighting</span>
+                            <span class="badge badge-outline">Look Development</span>
+                            <span class="badge badge-outline">Rendering</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Experience</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                            <span class="badge badge-outline">Ubisoft</span>
+                            <span class="badge badge-outline">Framestore</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 1rem;">Lena brings a unique background in both architectural visualization and game lighting to her teaching. She has worked at top studios like Ubisoft and Framestore, creating stunning lighting for games and films.</p>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">Achievements</h4>
+                        <ul class="details-list">
+                            <li>SIGGRAPH Speaker 2022</li>
+                            <li>Lead Lighter on AAA games</li>
+                            <li>Lighting TD certification</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://lenalights.com" target="_blank" class="btn btn-outline w-full">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        View Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Enrollment Section -->
+<section id="enrollment" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">How to Enroll</h2>
+            <p class="section-desc">Start your journey in 3D animation and VFX with our simple enrollment process</p>
+        </div>
+
+        <!-- Enrollment Steps -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <div class="card text-center">
+                <div class="card-content">
+                    <div style="width: 3rem; height: 3rem; background-color: #eab308; color: #000; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Step 1: Choose Your Course</h3>
+                    <p class="card-desc">Select from our comprehensive range of 3D animation and VFX courses</p>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card-content">
+                    <div style="width: 3rem; height: 3rem; background-color: #eab308; color: #000; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Step 2: Complete Application</h3>
+                    <p class="card-desc">Fill out our simple enrollment form with your details and goals</p>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card-content">
+                    <div style="width: 3rem; height: 3rem; background-color: #eab308; color: #000; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4v10a2 2 0 002 2h4a2 2 0 002-2V11m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Step 3: Start Learning</h3>
+                    <p class="card-desc">Access course materials immediately and join live mentoring sessions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enrollment Form and Info -->
+        <div class="form-grid">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Enrollment Form</h3>
+                    <p class="card-desc">Fill out this form to begin your enrollment process</p>
+                    
+                    <form onsubmit="handleEnrollmentSubmit(event)" style="margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="enroll-name">Full Name</label>
+                            <input class="form-input" type="text" id="enroll-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="enroll-email">Email Address</label>
+                            <input class="form-input" type="email" id="enroll-email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="enroll-course">Preferred Course</label>
+                            <select class="form-select" id="enroll-course">
+                                <option value="">Select a course</option>
+                                <option value="3d-animation">3D Animation Basics</option>
+                                <option value="3d-modeling">3D Modeling Fundamentals</option>
+                                <option value="texturing">UV Unwrapping and Texturing</option>
+                                <option value="rigging">Character Rigging</option>
+                                <option value="lighting">Lighting for 3D</option>
+                                <option value="vfx">VFX Essentials</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="enroll-experience">Experience Level</label>
+                            <select class="form-select" id="enroll-experience">
+                                <option value="">Select your experience level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="enroll-goals">Learning Goals</label>
+                            <textarea class="form-textarea" id="enroll-goals" placeholder="Tell us about your learning goals and what you hope to achieve..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full">Submit Enrollment Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-content">
+                        <h3 class="card-title flex items-center">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                            Course Schedule
+                        </h3>
+                        <div style="margin-top: 1rem;">
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="font-weight: 600; color: #e2e8f0;">Flexible Learning</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">All courses are available on-demand, allowing you to learn at your own pace</p>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="font-weight: 600; color: #e2e8f0;">Live Mentoring</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">Weekly live sessions with instructors every Tuesday and Thursday at 7 PM EST</p>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; color: #e2e8f0;">Office Hours</h4>
+                                <p style="font-size: 0.875rem; color: #94a3b8;">One-on-one support available Monday-Friday, 9 AM - 5 PM EST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">What's Included</h3>
+                        <ul style="margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Lifetime access to course materials
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Weekly live mentoring sessions
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Project-based learning with feedback
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Industry-standard software training
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Certificate of completion
+                            </li>
+                            <li style="display: flex; align-items: flex-start; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Career guidance and portfolio review
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment & Pricing Section -->
+<section id="payment" class="section bg-muted">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Course Pricing & Payment</h2>
+            <p class="section-desc">Choose the perfect plan for your learning journey with flexible payment options</p>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+            <!-- Individual Course -->
+            <div class="card">
+                <div class="card-content">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 class="card-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Individual Course</h3>
+                        <div style="font-size: 3rem; font-weight: 700; color: #eab308; margin-bottom: 0.5rem;">$299</div>
+                        <p style="color: #94a3b8;">Per course • Lifetime access</p>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Complete course materials
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Weekly live sessions
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Project feedback
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Certificate of completion
+                        </li>
+                        <li style="display: flex; align-items: center; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Community access
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-outline w-full" onclick="selectPlan('individual')">Choose Individual</button>
+                </div>
+            </div>
+
+            <!-- Complete Bundle -->
+            <div class="card" style="border: 2px solid #eab308; position: relative;">
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #eab308; color: #000; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600;">
+                    MOST POPULAR
+                </div>
+                <div class="card-content">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 class="card-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Complete Bundle</h3>
+                        <div style="font-size: 3rem; font-weight: 700; color: #eab308; margin-bottom: 0.5rem;">$999</div>
+                        <p style="color: #94a3b8;">All 6 courses • Save $795</p>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            All 6 courses included
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Priority instructor support
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            1-on-1 portfolio review
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Career guidance session
+                        </li>
+                        <li style="display: flex; align-items: center; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Exclusive masterclasses
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-primary w-full" onclick="selectPlan('bundle')">Choose Bundle</button>
+                </div>
+            </div>
+
+            <!-- Monthly Subscription -->
+            <div class="card">
+                <div class="card-content">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 class="card-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Monthly Access</h3>
+                        <div style="font-size: 3rem; font-weight: 700; color: #eab308; margin-bottom: 0.5rem;">$79</div>
+                        <p style="color: #94a3b8;">Per month • Cancel anytime</p>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Access to all courses
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Monthly live sessions
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Community support
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Download materials
+                        </li>
+                        <li style="display: flex; align-items: center; font-size: 0.875rem;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.75rem; color: #eab308;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Cancel anytime
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-outline w-full" onclick="selectPlan('monthly')">Choose Monthly</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="form-grid" id="paymentForm" style="display: none;">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Payment Information</h3>
+                    <p class="card-desc">Complete your enrollment with secure payment</p>
+                    
+                    <form onsubmit="handlePaymentSubmit(event)" style="margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="payment-plan">Selected Plan</label>
+                            <input class="form-input" type="text" id="payment-plan" readonly style="background-color: #2d2d2d;">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="payment-email">Email Address</label>
+                            <input class="form-input" type="email" id="payment-email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="payment-name">Full Name</label>
+                            <input class="form-input" type="text" id="payment-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="card-number">Card Number</label>
+                            <input class="form-input" type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="card-expiry">Expiry Date</label>
+                                <input class="form-input" type="text" id="card-expiry" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="card-cvc">CVC</label>
+                                <input class="form-input" type="text" id="card-cvc" placeholder="123" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="billing-address">Billing Address</label>
+                            <input class="form-input" type="text" id="billing-address" required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="billing-city">City</label>
+                                <input class="form-input" type="text" id="billing-city" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="billing-state">State</label>
+                                <input class="form-input" type="text" id="billing-state" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="billing-zip">ZIP Code</label>
+                                <input class="form-input" type="text" id="billing-zip" required>
+                            </div>
+                        </div>
+
+                        <div style="margin: 1.5rem 0;">
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="checkbox" required style="margin-right: 0.5rem;">
+                                <span style="font-size: 0.875rem;">I agree to the <a href="#" style="color: #eab308;">Terms of Service</a> and <a href="#" style="color: #eab308;">Privacy Policy</a></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0110 0v4"/>
+                            </svg>
+                            Complete Secure Payment
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <!-- Payment Methods -->
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-content">
+                        <h3 class="card-title">Accepted Payment Methods</h3>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                            <div style="padding: 0.5rem 1rem; background: #2d2d2d; border-radius: 0.375rem; font-size: 0.875rem;">💳 Visa</div>
+                            <div style="padding: 0.5rem 1rem; background: #2d2d2d; border-radius: 0.375rem; font-size: 0.875rem;">💳 Mastercard</div>
+                            <div style="padding: 0.5rem 1rem; background: #2d2d2d; border-radius: 0.375rem; font-size: 0.875rem;">💳 American Express</div>
+                            <div style="padding: 0.5rem 1rem; background: #2d2d2d; border-radius: 0.375rem; font-size: 0.875rem;">🅿️ PayPal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Info -->
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-content">
+                        <h3 class="card-title flex items-center">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; color: #eab308;">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0110 0v4"/>
+                            </svg>
+                            Secure Payment
+                        </h3>
+                        <ul style="margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: center; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                256-bit SSL encryption
+                            </li>
+                            <li style="display: flex; align-items: center; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                PCI DSS compliant
+                            </li>
+                            <li style="display: flex; align-items: center; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                30-day money-back guarantee
+                            </li>
+                            <li style="display: flex; align-items: center; font-size: 0.875rem;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem; color: #eab308;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                24/7 fraud monitoring
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-desc">Get in touch with our team for any inquiries or support</p>
+        </div>
+
+        <div class="form-grid">
+            <div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-content">
+                        <h3 class="card-title">Send us a message</h3>
+                        <p class="card-desc">We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.</p>
+
+                        <form onsubmit="handleContactSubmit(event)" style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="contact-name">Your Name</label>
+                                <input class="form-input" type="text" id="contact-name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-email">Your Email</label>
+                                <input class="form-input" type="email" id="contact-email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-subject">Subject</label>
+                                <input class="form-input" type="text" id="contact-subject">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contact-message">Message</label>
+                                <textarea class="form-textarea" id="contact-message" rows="5" placeholder="Write your message here..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-full">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-5 14h4a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h4"/>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:info@3danimationvfxacademy.com">thenukapasan@gmail.com</a></p>
+                        <span>General Inquiries</span>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <p>+94 0766924600</p>
+                        <span>Monday - Friday, 9 AM - 5 PM EST</span>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.99 1.99 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.414 20.9a1.99 1.99 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Visit Us</h3>
+                        <p>483/16, Heiyanthuduwa (North), Heiyanthuduwa</p>
+                        <span>Gamphaha Sri Lanka</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        &copy; 2024 3D Animation & VFX Academy. All rights reserved.
+    </div>
+</footer>
+
+<script>
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        mobileMenu.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+    }
+
+    let slideIndex = 0;
+    const heroBgs = [
+        document.getElementById('heroBg1'),
+        document.getElementById('heroBg2'),
+        document.getElementById('heroBg3')
+    ];
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtitle = document.getElementById('heroSubtitle');
+
+    const slides = [
+        {
+            title: "3D Animation Basics",
+            subtitle: "Master the principles of timing, spacing, and movement",
+            bg: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg-1.jpg')"
+        },
+        {
+            title: "VFX Essentials",
+            subtitle: "Learn compositing, tracking, and particle simulations",
+            bg: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg-2.jpg')"
+        },
+        {
+            title: "3D Modeling Fundamentals",
+            subtitle: "Create stunning 3D models for games, film, and product design",
+            bg: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg-3.jpg')"
+        }
+    ];
+
+    function showSlide(index) {
+        heroBgs.forEach(bg => bg.style.opacity = 0);
+        heroBgs[index].style.backgroundImage = slides[index].bg;
+        heroBgs[index].style.opacity = 1;
+        heroTitle.textContent = slides[index].title;
+        heroSubtitle.textContent = slides[index].subtitle;
+
+        // Update active dot
+        const dots = document.querySelectorAll('.hero-dot');
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+    }
+
+    function changeSlide(n) {
+        slideIndex += n;
+        if (slideIndex >= heroBgs.length) {
+            slideIndex = 0;
+        }
+        if (slideIndex < 0) {
+            slideIndex = heroBgs.length - 1;
+        }
+        showSlide(slideIndex);
+    }
+
+    function goToSlide(n) {
+        slideIndex = n;
+        showSlide(slideIndex);
+    }
+
+    // Initial slide
+    showSlide(slideIndex);
+
+    // Toggle course details
+    function toggleDetails(id, button) {
+        const details = document.getElementById(id);
+        details.classList.toggle('expanded');
+
+        if (details.classList.contains('expanded')) {
+            button.textContent = 'See Less';
+        } else {
+            button.textContent = 'See More';
+        }
+    }
+
+    // Handle enrollment form submission
+    function handleEnrollmentSubmit(event) {
+        event.preventDefault();
+        alert('Enrollment application submitted!');
+        // You can add code here to actually submit the form data
+    }
+
+    // Handle contact form submission
+    function handleContactSubmit(event) {
+        event.preventDefault();
+        alert('Contact form submitted!');
+        // You can add code here to actually submit the form data
+    }
+
+    // Payment Logic
+    let selectedPlan = null;
+
+    function selectPlan(plan) {
+        selectedPlan = plan;
+        document.getElementById('payment-plan').value = plan.toUpperCase();
+        document.getElementById('paymentForm').style.display = 'grid';
+        window.scrollTo({
+            top: document.getElementById('payment').offsetTop,
+            behavior: 'smooth'
+        });
+    }
+
+    function handlePaymentSubmit(event) {
+        event.preventDefault();
+        alert('Payment submitted for ' + selectedPlan + ' plan!');
+        // You can add code here to actually submit the payment data
+    }
+</script>
+</body>
+</html>

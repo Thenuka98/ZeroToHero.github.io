@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VFX Essentials - Zero to Hero Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #e2e8f0;
+        background-color: #0f0f0f;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* Header */
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #1f1f1f;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #e2e8f0;
+    }
+
+    .logo-icon {
+        width: 2rem;
+        height: 2rem;
+        color: #eab308;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #94a3b8;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+        background-color: #1f1f1f;
+        color: #eab308;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    }
+
+    .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+        font-size: 1.25rem;
+        color: #94a3b8;
+        margin-bottom: 2rem;
+    }
+
+    .course-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #eab308;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: #991b1b;
+        color: #ef4444;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .star {
+        color: #eab308;
+        fill: currentColor;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #eab308;
+        color: #000;
+    }
+
+    .btn-primary:hover {
+        background-color: #ca8a04;
+        transform: translateY(-2px);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: #eab308;
+        border: 2px solid #eab308;
+    }
+
+    .btn-outline:hover {
+        background: #eab308;
+        color: #000;
+    }
+
+    .hero-video {
+        aspect-ratio: 16/9;
+        background: #1f1f1f;
+        border-radius: 1rem;
+        border: 1px solid #2d2d2d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .play-button {
+        width: 5rem;
+        height: 5rem;
+        background: #eab308;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .play-button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Main Content */
+    .main-content {
+        padding: 4rem 0;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+    }
+
+    .card {
+        background: #1f1f1f;
+        border-radius: 0.75rem;
+        border: 1px solid #2d2d2d;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 1.5rem;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #e2e8f0;
+        margin-bottom: 1rem;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .skill-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .skill-item svg {
+        color: #eab308;
+        margin-top: 0.125rem;
+        flex-shrink: 0;
+    }
+
+    .module {
+        border: 1px solid #2d2d2d;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    .module-header {
+        padding: 1rem;
+        background: #2d2d2d;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.2s;
+    }
+
+    .module-header:hover {
+        background: #3d3d3d;
+    }
+
+    .module-title {
+        font-weight: 600;
+        color: #e2e8f0;
+    }
+
+    .module-meta {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .module-content {
+        padding: 1rem;
+        background: #1a1a1a;
+        display: none;
+    }
+
+    .module-content.active {
+        display: block;
+    }
+
+    .lesson-list {
+        list-style: none;
+    }
+
+    .lesson-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        color: #94a3b8;
+    }
+
+    .lesson-list li svg {
+        color: #eab308;
+        flex-shrink: 0;
+    }
+
+    .requirements-list {
+        list-style: none;
+    }
+
+    .requirements-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .requirements-list li svg {
+        color: #eab308;
+        margin-top: 0.125rem;
+        flex-shrink: 0;
+    }
+
+    /* Sidebar */
+    .sidebar .card {
+        margin-bottom: 1.5rem;
+    }
+
+    .instructor-profile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .instructor-avatar {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #eab308, #ca8a04);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: #000;
+        font-size: 1.25rem;
+    }
+
+    .instructor-info h4 {
+        font-weight: 600;
+        color: #e2e8f0;
+    }
+
+    .instructor-info p {
+        color: #eab308;
+        font-size: 0.875rem;
+    }
+
+    .instructor-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .tag {
+        padding: 0.25rem 0.5rem;
+        background: #2d2d2d;
+        color: #94a3b8;
+        font-size: 0.75rem;
+        border-radius: 0.25rem;
+    }
+
+    .features-list {
+        list-style: none;
+    }
+
+    .features-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .price-section {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .price {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 0.5rem;
+    }
+
+    .price-note {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    /* Enrollment Section */
+    .enrollment {
+        padding: 4rem 0;
+        background: #1a1a1a;
+    }
+
+    .enrollment-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .enrollment h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 1rem;
+    }
+
+    .enrollment p {
+        font-size: 1.125rem;
+        color: #94a3b8;
+        margin-bottom: 3rem;
+    }
+
+    .enrollment-form {
+        background: #1f1f1f;
+        border: 1px solid #2d2d2d;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: left;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #e2e8f0;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #2d2d2d;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        transition: border-color 0.2s;
+        background-color: #2d2d2d;
+        color: #e2e8f0;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: #eab308;
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .checkbox-group input {
+        margin-top: 0.25rem;
+    }
+
+    .checkbox-group label {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .checkbox-group a {
+        color: #eab308;
+        text-decoration: none;
+    }
+
+    .checkbox-group a:hover {
+        text-decoration: underline;
+    }
+
+    .form-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    /* Footer */
+    .footer {
+        background-color: #0f0f0f;
+        padding: 2rem 0;
+        text-align: center;
+        color: #94a3b8;
+        border-top: 1px solid #1f1f1f;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+
+        .hero-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 2rem;
+        }
+
+        .course-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .hero-text h1 {
+            font-size: 1.75rem;
+        }
+
+        .course-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+                <span class="logo-text">Zero to Hero Academy</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#courses" class="nav-link">All Courses</a></li>
+                <li><a href="#instructors" class="nav-link">Instructors</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge">Advanced</div>
+                <div class="rating">
+                    <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span style="color: #eab308; font-weight: 600;">4.9</span>
+                    <span style="color: #94a3b8;">(189 reviews)</span>
+                </div>
+
+                <h1>VFX Essentials</h1>
+                <p>Dive into the world of visual effects and compositing. Learn industry-standard techniques for creating explosions, fire, smoke, destruction, and seamlessly integrating CG elements with live-action footage.</p>
+
+                <div class="course-stats">
+                    <div class="stat">
+                        <div class="stat-number">14</div>
+                        <div class="stat-label">Weeks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">432</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">38</div>
+                        <div class="stat-label">Lessons</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">Certificate</div>
+                        <div class="stat-label">Included</div>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#enrollment" class="btn btn-primary">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        Enroll Now - $549
+                    </a>
+                    <a href="#" class="btn btn-outline">Preview Course</a>
+                </div>
+            </div>
+
+            <div class="hero-video">
+                <div class="play-button">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+    <div class="container">
+        <div class="content-grid">
+            <!-- Main Content -->
+            <div>
+                <!-- What You'll Learn -->
+                <div class="card">
+                    <h2>What You'll Learn</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Particle Systems (Fire, Smoke, Explosions)</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Fluid Dynamics (Water, Liquids)</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Destruction & Fracturing</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Compositing & Integration</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Motion Tracking & Matchmoving</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Matte Painting & Environment Extension</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Color Grading & Look Development</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Professional VFX pipeline</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Modules -->
+                <div class="card">
+                    <h2>Course Modules</h2>
+                    
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(0)">
+                            <div>
+                                <div class="module-title">VFX Fundamentals</div>
+                                <div class="module-meta">Week 1-2 • 5 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-0">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Introduction to VFX Pipeline
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Industry Software Overview
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Understanding Render Passes
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Linear Workflow & Color Management
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project Planning & Reference
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(1)">
+                            <div>
+                                <div class="module-title">Particle Systems</div>
+                                <div class="module-meta">Week 3-5 • 8 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-1">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Particle System Fundamentals
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Creating Fire Effects
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Smoke & Atmospheric Effects
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Explosion Dynamics
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Sparks & Debris Systems
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Weather Effects (Rain, Snow)
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Particle Rendering & Shading
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project: Explosion Sequence
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(2)">
+                            <div>
+                                <div class="module-title">Fluid Dynamics</div>
+                                <div class="module-meta">Week 6-7 • 6 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-2">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Fluid Simulation Basics
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Water & Ocean Simulations
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Liquid Interactions & Splashes
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Viscous Fluids (Honey, Lava)
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Fluid Meshing & Rendering
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project: Water Interaction
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(3)">
+                            <div>
+                                <div class="module-title">Destruction & Fracturing</div>
+                                <div class="module-meta">Week 8-9 • 6 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-3">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Rigid Body Dynamics
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Fracturing & Voronoi Patterns
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Building Collapse Simulations
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Glass & Material Breaking
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Constraint Systems
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project: Destruction Sequence
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(4)">
+                            <div>
+                                <div class="module-title">Compositing & Integration</div>
+                                <div class="module-meta">Week 10-11 • 6 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-4">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Nuke Compositing Fundamentals
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Keying & Rotoscoping
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    CG Integration Techniques
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Light Wrapping & Edge Blending
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Depth Compositing & Z-Depth
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project: Live Action Integration
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(5)">
+                            <div>
+                                <div class="module-title">Motion Tracking & Matchmoving</div>
+                                <div class="module-meta">Week 12 • 4 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-5">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Camera Tracking Fundamentals
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Object Tracking & Planar Tracking
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    3D Camera Solve
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Lens Distortion & Calibration
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(6)">
+                            <div>
+                                <div class="module-title">Matte Painting & Environments</div>
+                                <div class="module-meta">Week 13 • 3 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-6">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Digital Matte Painting Basics
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Environment Extensions
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Projection Mapping Techniques
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(7)">
+                            <div>
+                                <div class="module-title">Final Project & Portfolio</div>
+                                <div class="module-meta">Week 14 • 3 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-7">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Creating a VFX Breakdown Reel
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Portfolio Presentation
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Industry Career Guidance
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requirements -->
+                <div class="card">
+                    <h2>Requirements</h2>
+                    <ul class="requirements-list">
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Advanced 3D knowledge & animation experience</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>High-end workstation for simulations</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Maya, Houdini, Nuke (trials acceptable)</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Adobe After Effects & Photoshop</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Strong problem-solving skills</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Instructor -->
+                <div class="card">
+                    <h3>Your Instructor</h3>
+                    <div class="instructor-profile">
+                        <div class="instructor-avatar">MR</div>
+                        <div class="instructor-info">
+                            <h4>Marcus Rodriguez</h4>
+                            <p>VFX Supervisor</p>
+                        </div>
+                    </div>
+                    <p style="color: #94a3b8; font-size: 0.875rem; margin-bottom: 1rem;">
+                        Marcus brings 15+ years of VFX experience from major studios like ILM and Weta Digital, having worked on blockbuster films and award-winning projects.
+                    </p>
+                    <div class="instructor-tags">
+                        <span class="tag">ILM</span>
+                        <span class="tag">Weta Digital</span>
+                        <span class="tag">Emmy Winner</span>
+                    </div>
+                    <button class="btn btn-outline" style="width: 100%;">View Full Profile</button>
+                </div>
+
+                <!-- Course Features -->
+                <div class="card">
+                    <h3>Course Features</h3>
+                    <ul class="features-list">
+                        <li>
+                            <span>⏰</span>
+                            <span>Lifetime access to materials</span>
+                        </li>
+                        <li>
+                            <span>🎥</span>
+                            <span>38 video lessons</span>
+                        </li>
+                        <li>
+                            <span>📝</span>
+                            <span>Hands-on VFX projects</span>
+                        </li>
+                        <li>
+                            <span>👥</span>
+                            <span>Weekly live mentoring</span>
+                        </li>
+                        <li>
+                            <span>📱</span>
+                            <span>Mobile & desktop access</span>
+                        </li>
+                        <li>
+                            <span>🏆</span>
+                            <span>Certificate of completion</span>
+                        </li>
+                        <li>
+                            <span>💬</span>
+                            <span>Community forum access</span>
+                        </li>
+                        <li>
+                            <span>🔄</span>
+                            <span>30-day money-back guarantee</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pricing -->
+                <div class="card">
+                    <div class="price-section">
+                        <div class="price">$549</div>
+                        <div class="price-note">One-time payment</div>
+                        <div class="price-note">Or 3 payments of $183</div>
+                    </div>
+                    <button onclick="document.getElementById('enrollment').scrollIntoView({behavior: 'smooth'})" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                        Enroll Now
+                    </button>
+                    <div style="text-align: center;">
+                        <p style="color: #94a3b8; font-size: 0.75rem;">30-day money-back guarantee</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Enrollment Section -->
+<section id="enrollment" class="enrollment">
+    <div class="container">
+        <div class="enrollment-content">
+            <h2>Ready to Master VFX?</h2>
+            <p>Join 432 students who are already creating professional visual effects</p>
+
+            <form class="enrollment-form" onsubmit="handleEnrollment(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" required placeholder="Enter your email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Experience Level</label>
+                    <select class="form-select">
+                        <option value="">Select your experience level</option>
+                        <option value="advanced">Advanced (3D/Animation Experience)</option>
+                        <option value="professional">Professional</option>
+                        <option value="industry">Industry Professional</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Learning Goals</label>
+                    <textarea class="form-textarea" placeholder="Tell us about your VFX goals and what you hope to achieve..."></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.125rem; padding: 1rem;">
+                    Enroll Now - $549
+                </button>
+
+                <div class="form-footer">
+                    <p>💳 Secure payment • 🔒 30-day money-back guarantee • 📧 Instant access</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Zero to Hero Academy. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function toggleModule(index) {
+        const module = document.getElementById(`module-${index}`);
+        const isActive = module.classList.contains('active');
+        
+        // Close all modules
+        document.querySelectorAll('.module-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Open clicked module if it wasn't active
+        if (!isActive) {
+            module.classList.add('active');
+        }
+    }
+
+    function handleEnrollment(event) {
+        event.preventDefault();
+        alert('Thank you for enrolling in VFX Essentials! We will contact you soon with next steps.');
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

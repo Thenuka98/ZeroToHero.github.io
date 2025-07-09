@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lighting for 3D - Zero to Hero Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #e2e8f0;
+        background-color: #0f0f0f;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* Header */
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #1f1f1f;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #e2e8f0;
+    }
+
+    .logo-icon {
+        width: 2rem;
+        height: 2rem;
+        color: #eab308;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #94a3b8;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+        background-color: #1f1f1f;
+        color: #eab308;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    }
+
+    .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+        font-size: 1.25rem;
+        color: #94a3b8;
+        margin-bottom: 2rem;
+    }
+
+    .course-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #eab308;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: #92400e;
+        color: #fbbf24;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .star {
+        color: #eab308;
+        fill: currentColor;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #eab308;
+        color: #000;
+    }
+
+    .btn-primary:hover {
+        background-color: #ca8a04;
+        transform: translateY(-2px);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: #eab308;
+        border: 2px solid #eab308;
+    }
+
+    .btn-outline:hover {
+        background: #eab308;
+        color: #000;
+    }
+
+    .hero-video {
+        aspect-ratio: 16/9;
+        background: #1f1f1f;
+        border-radius: 1rem;
+        border: 1px solid #2d2d2d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .play-button {
+        width: 5rem;
+        height: 5rem;
+        background: #eab308;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .play-button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Main Content */
+    .main-content {
+        padding: 4rem 0;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+    }
+
+    .card {
+        background: #1f1f1f;
+        border-radius: 0.75rem;
+        border: 1px solid #2d2d2d;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 1.5rem;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #e2e8f0;
+        margin-bottom: 1rem;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .skill-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .skill-item svg {
+        color: #eab308;
+        margin-top: 0.125rem;
+        flex-shrink: 0;
+    }
+
+    .module {
+        border: 1px solid #2d2d2d;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    .module-header {
+        padding: 1rem;
+        background: #2d2d2d;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.2s;
+    }
+
+    .module-header:hover {
+        background: #3d3d3d;
+    }
+
+    .module-title {
+        font-weight: 600;
+        color: #e2e8f0;
+    }
+
+    .module-meta {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .module-content {
+        padding: 1rem;
+        background: #1a1a1a;
+        display: none;
+    }
+
+    .module-content.active {
+        display: block;
+    }
+
+    .lesson-list {
+        list-style: none;
+    }
+
+    .lesson-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        color: #94a3b8;
+    }
+
+    .lesson-list li svg {
+        color: #eab308;
+        flex-shrink: 0;
+    }
+
+    .requirements-list {
+        list-style: none;
+    }
+
+    .requirements-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .requirements-list li svg {
+        color: #eab308;
+        margin-top: 0.125rem;
+        flex-shrink: 0;
+    }
+
+    /* Sidebar */
+    .sidebar .card {
+        margin-bottom: 1.5rem;
+    }
+
+    .instructor-profile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .instructor-avatar {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #eab308, #ca8a04);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: #000;
+        font-size: 1.25rem;
+    }
+
+    .instructor-info h4 {
+        font-weight: 600;
+        color: #e2e8f0;
+    }
+
+    .instructor-info p {
+        color: #eab308;
+        font-size: 0.875rem;
+    }
+
+    .instructor-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .tag {
+        padding: 0.25rem 0.5rem;
+        background: #2d2d2d;
+        color: #94a3b8;
+        font-size: 0.75rem;
+        border-radius: 0.25rem;
+    }
+
+    .features-list {
+        list-style: none;
+    }
+
+    .features-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .price-section {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .price {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 0.5rem;
+    }
+
+    .price-note {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    /* Enrollment Section */
+    .enrollment {
+        padding: 4rem 0;
+        background: #1a1a1a;
+    }
+
+    .enrollment-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .enrollment h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #eab308;
+        margin-bottom: 1rem;
+    }
+
+    .enrollment p {
+        font-size: 1.125rem;
+        color: #94a3b8;
+        margin-bottom: 3rem;
+    }
+
+    .enrollment-form {
+        background: #1f1f1f;
+        border: 1px solid #2d2d2d;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: left;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #e2e8f0;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #2d2d2d;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        transition: border-color 0.2s;
+        background-color: #2d2d2d;
+        color: #e2e8f0;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: #eab308;
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .checkbox-group input {
+        margin-top: 0.25rem;
+    }
+
+    .checkbox-group label {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    .checkbox-group a {
+        color: #eab308;
+        text-decoration: none;
+    }
+
+    .checkbox-group a:hover {
+        text-decoration: underline;
+    }
+
+    .form-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+
+    /* Footer */
+    .footer {
+        background-color: #0f0f0f;
+        padding: 2rem 0;
+        text-align: center;
+        color: #94a3b8;
+        border-top: 1px solid #1f1f1f;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+
+        .hero-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 2rem;
+        }
+
+        .course-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .hero-text h1 {
+            font-size: 1.75rem;
+        }
+
+        .course-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+                <span class="logo-text">Zero to Hero Academy</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#courses" class="nav-link">All Courses</a></li>
+                <li><a href="#instructors" class="nav-link">Instructors</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge">Intermediate</div>
+                <div class="rating">
+                    <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span style="color: #eab308; font-weight: 600;">4.8</span>
+                    <span style="color: #94a3b8;">(234 reviews)</span>
+                </div>
+
+                <h1>Lighting for 3D</h1>
+                <p>Explore cinematic and photorealistic lighting techniques for your 3D scenes. Understand the art and science of 3D lighting, learn about different light types, global illumination, creating moods, and achieving realism.</p>
+
+                <div class="course-stats">
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Weeks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">892</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">22</div>
+                        <div class="stat-label">Lessons</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">Certificate</div>
+                        <div class="stat-label">Included</div>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#enrollment" class="btn btn-primary">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        Enroll Now - $329
+                    </a>
+                    <a href="#" class="btn btn-outline">Preview Course</a>
+                </div>
+            </div>
+
+            <div class="hero-video">
+                <div class="play-button">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+    <div class="container">
+        <div class="content-grid">
+            <!-- Main Content -->
+            <div>
+                <!-- What You'll Learn -->
+                <div class="card">
+                    <h2>What You'll Learn</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Principles of Light and Shadow</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Three-Point Lighting Setup</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Global Illumination (GI) & Ambient Occlusion</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>HDRI (High Dynamic Range Imaging)</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Volumetric Lighting (Fog, God Rays)</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Render Passes & AOV</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Color Theory in Lighting</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Stylized vs. Photorealistic Lighting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Modules -->
+                <div class="card">
+                    <h2>Course Modules</h2>
+                    
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(0)">
+                            <div>
+                                <div class="module-title">Lighting Fundamentals</div>
+                                <div class="module-meta">Week 1 • 3 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-0">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Physics of Light & Shadow
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Light Types in 3D Software
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Understanding Light Properties
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(1)">
+                            <div>
+                                <div class="module-title">Three-Point Lighting</div>
+                                <div class="module-meta">Week 2 • 3 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-1">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Key Light Setup
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Fill Light & Rim Light
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Character Lighting Exercise
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(2)">
+                            <div>
+                                <div class="module-title">Global Illumination & HDRI</div>
+                                <div class="module-meta">Week 3-4 • 6 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-2">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Understanding Global Illumination
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    HDRI Environment Lighting
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Ambient Occlusion Techniques
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Creating Realistic Skies
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Indoor vs Outdoor Lighting
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project: Photorealistic Scene
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(3)">
+                            <div>
+                                <div class="module-title">Advanced Lighting Techniques</div>
+                                <div class="module-meta">Week 5-6 • 6 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-3">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Volumetric Lighting & Fog
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    God Rays & Atmospheric Effects
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Caustics & Subsurface Scattering
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Area Lights & Light Linking
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Light Exclusion & Inclusion
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Project: Dramatic Scene
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(4)">
+                            <div>
+                                <div class="module-title">Color Theory & Mood</div>
+                                <div class="module-meta">Week 7 • 3 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-4">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Color Temperature & Mood
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Complementary Color Schemes
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Stylized vs Realistic Lighting
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(5)">
+                            <div>
+                                <div class="module-title">Rendering & Optimization</div>
+                                <div class="module-meta">Week 8 • 3 lessons</div>
+                            </div>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div class="module-content" id="module-5">
+                            <ul class="lesson-list">
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Render Passes & AOVs
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Lighting Optimization Techniques
+                                </li>
+                                <li>
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    Final Portfolio Project
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requirements -->
+                <div class="card">
+                    <h2>Requirements</h2>
+                    <ul class="requirements-list">
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Basic 3D modeling & scene setup knowledge</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Computer capable of 3D rendering</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Maya or Blender (we'll cover both)</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Basic understanding of color theory</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Patience for rendering times</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Instructor -->
+                <div class="card">
+                    <h3>Your Instructor</h3>
+                    <div class="instructor-profile">
+                        <div class="instructor-avatar">LM</div>
+                        <div class="instructor-info">
+                            <h4>Lena Moreau</h4>
+                            <p>Lighting Director</p>
+                        </div>
+                    </div>
+                    <p style="color: #94a3b8; font-size: 0.875rem; margin-bottom: 1rem;">
+                        Lena brings 8+ years of experience in both architectural visualization and game lighting, having worked at top studios like Ubisoft and Framestore.
+                    </p>
+                    <div class="instructor-tags">
+                        <span class="tag">Ubisoft</span>
+                        <span class="tag">Framestore</span>
+                        <span class="tag">SIGGRAPH Speaker</span>
+                    </div>
+                    <button class="btn btn-outline" style="width: 100%;">View Full Profile</button>
+                </div>
+
+                <!-- Course Features -->
+                <div class="card">
+                    <h3>Course Features</h3>
+                    <ul class="features-list">
+                        <li>
+                            <span>⏰</span>
+                            <span>Lifetime access to materials</span>
+                        </li>
+                        <li>
+                            <span>🎥</span>
+                            <span>22 video lessons</span>
+                        </li>
+                        <li>
+                            <span>📝</span>
+                            <span>Hands-on lighting projects</span>
+                        </li>
+                        <li>
+                            <span>👥</span>
+                            <span>Weekly live mentoring</span>
+                        </li>
+                        <li>
+                            <span>📱</span>
+                            <span>Mobile & desktop access</span>
+                        </li>
+                        <li>
+                            <span>🏆</span>
+                            <span>Certificate of completion</span>
+                        </li>
+                        <li>
+                            <span>💬</span>
+                            <span>Community forum access</span>
+                        </li>
+                        <li>
+                            <span>🔄</span>
+                            <span>30-day money-back guarantee</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pricing -->
